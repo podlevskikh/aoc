@@ -97,7 +97,7 @@ func main() {
 					}
 				}
 
-				if isOn(filteredZCuboids, round(xMin+0.5), round(yMin+0.5), round(zMin+0.5)) {
+				if len(filteredZCuboids) > 0 && filteredZCuboids[len(filteredZCuboids) - 1].On {
 					res += round(xMax-xMin) * round(yMax-yMin) * round(zMax-zMin)
 				}
 				zMin = zMax
@@ -115,20 +115,6 @@ func round(val float64) int64 {
 		return int64(val - 0.5)
 	}
 	return int64(val + 0.5)
-}
-
-func isOn(cuboids map[int]*Cuboid, x, y, z int64) bool {
-	if len(cuboids) == 0 {
-		return false
-	}
-	for i := len(cuboids) - 1; i >= 0; i-- {
-		if cuboids[i].XMin <= x && cuboids[i].XMax >= x &&
-			cuboids[i].YMin <= y && cuboids[i].YMax >= y &&
-			cuboids[i].ZMin <= z && cuboids[i].ZMax >= z {
-			return cuboids[i].On
-		}
-	}
-	return false
 }
 
 func uniqueSortFloat32(a []float64) []float64 {
